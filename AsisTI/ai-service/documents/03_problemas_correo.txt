@@ -1,0 +1,47 @@
+# INSTRUCTIVO 03 - PROBLEMAS DE CORREO ELECTRÓNICO
+
+**Área:** Sistemas  
+**Asistente:** AsisTI  
+**Categoría:** Correo electrónico
+
+## Objetivo
+Orientar al empleado cuando no puede enviar o recibir correos electrónicos o tiene inconvenientes para acceder a su cuenta institucional.
+
+## Problemas al enviar correos
+
+1. Verificar que exista conexión a Internet.
+2. Comprobar que la dirección del destinatario esté correctamente escrita.
+3. Revisar la carpeta Bandeja de salida.
+4. Comprobar si aparece algún mensaje de error.
+5. Verificar que los archivos adjuntos no superen el límite permitido.
+6. Intentar enviar nuevamente el correo.
+
+## Problemas al recibir correos
+
+1. Verificar que se esté utilizando la cuenta institucional correcta.
+2. Revisar la carpeta Correo no deseado.
+3. Comprobar otras carpetas disponibles.
+4. Actualizar la bandeja de entrada.
+5. Verificar si otros usuarios están experimentando el mismo inconveniente.
+
+## Problemas para iniciar sesión
+
+1. Comprobar que el correo institucional esté correctamente escrito.
+2. Verificar que el teclado no tenga activada accidentalmente la tecla Bloq Mayús.
+3. Comprobar que se esté utilizando el método habitual de autenticación.
+4. Si aparece un mensaje de cuenta bloqueada o contraseña vencida, contactar a Sistemas.
+
+## Si el problema continúa
+
+Informar al área de Sistemas:
+- Si el inconveniente ocurre al enviar, recibir o iniciar sesión.
+- Mensaje de error.
+- Fecha y hora aproximadas.
+- Si ocurre desde el navegador o desde la aplicación de escritorio.
+
+## Recomendaciones de seguridad
+
+- Nunca compartir contraseñas ni códigos de autenticación.
+- No abrir archivos adjuntos sospechosos.
+- No ingresar credenciales en enlaces recibidos por correos desconocidos.
+- Reportar mensajes sospechosos al área de Sistemas.

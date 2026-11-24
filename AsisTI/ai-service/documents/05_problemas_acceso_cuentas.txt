@@ -1,0 +1,44 @@
+# INSTRUCTIVO 05 - PROBLEMAS DE ACCESO A CUENTAS Y SISTEMAS
+
+**Área:** Sistemas  
+**Asistente:** AsisTI  
+**Categoría:** Accesos y permisos
+
+## Objetivo
+Ayudar al empleado cuando no puede iniciar sesión en Windows, correo electrónico o aplicaciones internas de la organización.
+
+## Pasos para solucionar el problema
+
+1. Verificar que se esté utilizando el usuario institucional correcto.
+2. Comprobar que no existan errores de escritura en el nombre de usuario.
+3. Revisar que la tecla Bloq Mayús no esté activada accidentalmente.
+4. Comprobar que el teclado tenga seleccionado el idioma correcto.
+5. Si el sistema ofrece una opción oficial para recuperar la contraseña, utilizar ese procedimiento.
+6. Si se utiliza autenticación de dos factores, comprobar que se esté siguiendo el procedimiento habitual.
+7. Si aparece un mensaje de cuenta bloqueada, contraseña vencida o falta de permisos, registrar el mensaje exacto.
+
+## Problemas de permisos
+
+Si el usuario puede iniciar sesión pero no puede acceder a una carpeta, sistema o recurso compartido:
+
+1. Verificar que esté ingresando al recurso correcto.
+2. Comprobar si otros usuarios pueden acceder al mismo recurso.
+3. Registrar el nombre del recurso al que intenta ingresar.
+4. Contactar al área de Sistemas para solicitar la revisión de permisos.
+
+## Si el problema continúa
+
+Informar al área de Sistemas:
+- Sistema al que se intenta acceder.
+- Mensaje de error.
+- Fecha y hora aproximadas.
+- Si se puede acceder a otros servicios institucionales.
+- Si el problema comenzó después de un cambio de contraseña.
+
+## Recomendaciones de seguridad
+
+- Nunca compartir contraseñas.
+- No utilizar cuentas de otros empleados.
+- No compartir códigos de autenticación.
+- No intentar acceder a recursos sin autorización.
+- No realizar intentos repetidos cuando el sistema advierte que la cuenta puede bloquearse.

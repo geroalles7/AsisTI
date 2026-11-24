@@ -1,0 +1,180 @@
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: asisti-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: asisti-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/var/www/html
+      - backend_vendor:/var/www/html/vendor
+    restart: unless-stopped
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=America/Argentina/Buenos_Aires
+      - TZ=America/Argentina/Buenos_Aires
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      postgres-asisti:
+        condition: service_healthy
+
+  postgres-asisti:
+    image: pgvector/pgvector:pg17
+    container_name: postgres-asisti
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: asisti
+      POSTGRES_USER: asisti_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_asisti_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U asisti_user -d asisti"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: asisti-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  
+  ollama-init:
+    image: ollama/ollama:latest
+    container_name: asisti-ollama-init
+    restart: "no"
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        until OLLAMA_HOST=http://ollama:11434 ollama list >/dev/null 2>&1; do
+          echo "Esperando a Ollama..."
+          sleep 5
+        done
+
+        echo "Descargando Qwen..."
+        OLLAMA_HOST=http://ollama:11434 ollama pull qwen2.5:3b
+
+        echo "Descargando Nomic..."
+        OLLAMA_HOST=http://ollama:11434 ollama pull nomic-embed-text
+
+        echo "Modelos disponibles."
+    depends_on:
+      ollama:
+        condition: service_started
+
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: asisti-ai
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: qwen2.5:3b
+      DB_HOST: postgres-asisti
+      DB_PORT: 5432
+      DB_NAME: asisti
+      DB_USER: asisti_user
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./ai-service:/app
+    depends_on:
+      ollama-init:
+        condition: service_completed_successfully
+      rag-indexer:
+        condition: service_completed_successfully
+      postgres-asisti:
+        condition: service_healthy
+
+  
+  rag-indexer:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: asisti-rag-indexer
+    restart: "no"
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: qwen2.5:3b
+      DB_HOST: postgres-asisti
+      DB_PORT: 5432
+      DB_NAME: asisti
+      DB_USER: asisti_user
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./ai-service:/app
+    command: ["python", "-m", "app.rag.indexer"]
+    depends_on:
+      ollama-init:
+        condition: service_completed_successfully
+      postgres-asisti:
+        condition: service_healthy
+
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: asisti-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    depends_on:
+      - ai-service
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: asisti-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  frontend_node_modules:
+  backend_vendor:
+  n8n_data:
+  postgres_asisti_data:
+  ollama_data:
+  prometheus_data:
+  grafana_data:

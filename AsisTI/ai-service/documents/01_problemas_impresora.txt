@@ -1,0 +1,35 @@
+# INSTRUCTIVO 01 - PROBLEMAS BÁSICOS DE IMPRESIÓN
+
+**Área:** Sistemas  
+**Asistente:** AsisTI  
+**Categoría:** Impresoras y periféricos
+
+## Objetivo
+Orientar al empleado cuando una impresora no imprime, aparece desconectada o los documentos quedan pendientes en la cola de impresión.
+
+## Pasos para solucionar el problema
+
+1. Verificar que la impresora esté encendida.
+2. Comprobar que tenga papel y que esté correctamente colocado en la bandeja.
+3. Revisar si aparece algún indicador de error, como falta de tóner, falta de tinta o atasco de papel.
+4. Comprobar que el cable USB o de red esté correctamente conectado, según corresponda.
+5. En Windows, ingresar en Configuración > Bluetooth y dispositivos > Impresoras y escáneres.
+6. Seleccionar la impresora que se desea utilizar y verificar que esté disponible.
+7. Abrir la cola de impresión y comprobar si existen documentos pendientes o pausados.
+8. Si hay trabajos propios atascados, cancelarlos y volver a intentar imprimir.
+9. Realizar una nueva impresión de prueba.
+
+## Si el problema continúa
+
+Contactar al área de Sistemas indicando:
+- Nombre o modelo de la impresora.
+- Mensaje de error que aparece.
+- Si el problema afecta solamente a un equipo o a varios usuarios.
+- Desde cuándo ocurre el inconveniente.
+
+## Recomendaciones
+
+- No tirar del papel con fuerza cuando se produce un atasco.
+- No abrir componentes internos de la impresora.
+- No instalar controladores descargados de sitios desconocidos.
+- Si la impresora presenta un error persistente, solicitar asistencia técnica.

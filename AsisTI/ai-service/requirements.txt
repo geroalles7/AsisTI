@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pydantic
+httpx
+python-dotenv
+psycopg[binary]
+pgvector
+pypdf
+python-docx
+prometheus-fastapi-instrumentator

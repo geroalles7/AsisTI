@@ -1,0 +1,42 @@
+# INSTRUCTIVO 02 - PROBLEMAS DE RED Y CONECTIVIDAD
+
+**Área:** Sistemas  
+**Asistente:** AsisTI  
+**Categoría:** Redes y conectividad
+
+## Objetivo
+Ayudar al empleado cuando no tiene conexión a Internet, no puede acceder a los sistemas internos o pierde la conexión de red.
+
+## Pasos para solucionar el problema
+
+1. Comprobar si el problema afecta solamente a la computadora propia o también a otros compañeros.
+2. Si se utiliza Wi-Fi, verificar que esté activado y conectado a la red corporativa correspondiente.
+3. Si se utiliza cable de red, comprobar que esté conectado correctamente tanto a la computadora como a la toma de red.
+4. Verificar que el modo avión de Windows esté desactivado.
+5. Desconectar y volver a conectar la conexión Wi-Fi, si corresponde.
+6. Cerrar y volver a abrir la aplicación que presenta el inconveniente.
+7. Si el problema continúa, reiniciar la computadora cuando sea posible guardar el trabajo.
+
+## Comprobación adicional
+
+En Windows se puede abrir CMD y ejecutar:
+
+`ipconfig`
+
+Este comando permite visualizar la configuración de red del equipo. No modifica la configuración.
+
+## Si el problema continúa
+
+Contactar al área de Sistemas indicando:
+- Si se utiliza conexión Wi-Fi o cable de red.
+- Qué sistema o servicio no se puede utilizar.
+- Mensaje de error que aparece.
+- Si otros compañeros tienen el mismo inconveniente.
+- Desde cuándo ocurre.
+
+## Recomendaciones
+
+- No modificar direcciones IP o DNS sin autorización.
+- No cambiar la configuración de VPN o proxy.
+- No conectar dispositivos personales a la red corporativa sin autorización.
+- Si el problema afecta a varios usuarios, comunicarlo cuanto antes al área de Sistemas.

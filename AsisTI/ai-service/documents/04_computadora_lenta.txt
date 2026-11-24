@@ -1,0 +1,39 @@
+# INSTRUCTIVO 04 - COMPUTADORA LENTA O CON BAJO RENDIMIENTO
+
+**Área:** Sistemas  
+**Asistente:** AsisTI  
+**Categoría:** Hardware y software
+
+## Objetivo
+Proporcionar soluciones básicas cuando una computadora funciona lentamente, tarda en iniciar o presenta demoras al abrir aplicaciones.
+
+## Pasos para solucionar el problema
+
+1. Guardar todos los documentos y trabajos abiertos.
+2. Cerrar programas que no se estén utilizando.
+3. Cerrar pestañas innecesarias del navegador.
+4. Esperar unos minutos si el equipo está realizando actualizaciones o tareas que consumen recursos.
+5. Reiniciar la computadora si hace mucho tiempo que no se reinicia y es posible hacerlo sin perder trabajo.
+6. Comprobar si la lentitud ocurre en todo el equipo o solamente en una aplicación.
+7. Abrir el Administrador de tareas mediante `Ctrl + Shift + Esc`.
+8. Revisar si alguna aplicación consume demasiada memoria o procesador. No finalizar procesos que no se reconozcan.
+9. Comprobar si Windows muestra advertencias relacionadas con el espacio disponible en disco.
+
+## Si el problema continúa
+
+Contactar al área de Sistemas indicando:
+- Identificación o modelo del equipo.
+- Desde cuándo funciona lentamente.
+- Si ocurre al iniciar Windows o al utilizar una aplicación.
+- Si aparece algún mensaje de error.
+- Si el equipo presenta temperaturas o ruidos inusuales.
+
+## Recomendaciones
+
+- No desinstalar programas corporativos.
+- No desactivar el antivirus.
+- No eliminar archivos del sistema.
+- No descargar programas de limpieza desde sitios desconocidos.
+- No modificar configuraciones avanzadas sin autorización.
+
+Si se detecta humo, olor a quemado o señales de daño eléctrico, dejar de utilizar el equipo y avisar inmediatamente a Sistemas.
