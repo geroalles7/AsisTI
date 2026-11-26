@@ -39,7 +39,7 @@ No es necesario instalar manualmente PHP, Composer, Python, Node.js, PostgreSQL 
 Abrir una terminal y ejecutar:
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/geroalles7/AsisTI.git
 ```
 
 Ingresar a la carpeta del proyecto:
@@ -48,68 +48,24 @@ Ingresar a la carpeta del proyecto:
 cd AsisTI
 ```
 
-## 4. Configurar las variables de entorno
+## 4. Iniciar el proyecto
 
-En la raíz del proyecto, crear el archivo `.env` a partir del archivo `.env.example`:
-
-En Windows:
-
-```powershell
-Copy-Item .env.example .env
-```
-
-En Linux/macOS:
+Desde la raíz del repositorio, ejecutar:
 
 ```bash
-cp .env.example .env
+docker compose up -d
 ```
 
-Editar el archivo `.env` y configurar las variables:
+No hace falta instalar Composer, importar el workflow de n8n ni crear un archivo `.env` para la primera ejecución local. Compose construye las imágenes, instala las dependencias PHP del backend, crea la base de datos y configura n8n con el workflow y la credencial PostgreSQL.
 
-```env
-POSTGRES_PASSWORD=CAMBIAR_POR_UNA_CLAVE_SEGURA
-
-AI_SERVICE_URL=http://ai-service:8001
-
-GRAFANA_USER=admin
-GRAFANA_PASSWORD=CAMBIAR_POR_UNA_CLAVE_SEGURA
-```
-
-Las contraseñas deben ser reemplazadas por valores propios.
-
-## 5. Construir y levantar los servicios
-
-Desde la raíz del proyecto, ejecutar:
-
-```bash
-docker compose up -d --build
-```
-
-Docker Compose construirá las imágenes necesarias y levantará los contenedores.
-
-Durante la primera ejecución:
-
-- Se descargará la imagen de Ollama.
-- Se descargarán los modelos Qwen 2.5 3B y Nomic Embed Text.
-- Se inicializará PostgreSQL con pgvector y las tablas correspondientes.
-- Se ejecutará el indexador de documentos del sistema RAG.
-- Se iniciarán los servicios de backend, frontend, IA y monitoreo.
-
-**Importante:** la primera instalación puede demorar debido a la descarga de imágenes Docker y modelos de inteligencia artificial.
-
-Para consultar el estado de los contenedores:
+Durante el primer inicio se descargan las imágenes Docker y los modelos Qwen 2.5 3B y Nomic Embed Text. La descarga puede demorar según la conexión y el equipo. Para consultar el estado:
 
 ```bash
 docker compose ps
-```
-
-Para consultar los registros:
-
-```bash
 docker compose logs -f
 ```
 
-## 6. Acceso a los servicios
+## 5. Acceso a los servicios
 
 Una vez iniciados correctamente los contenedores, los servicios estarán disponibles en las siguientes direcciones:
 
@@ -126,33 +82,13 @@ Una vez iniciados correctamente los contenedores, los servicios estarán disponi
 
 Para Grafana se utilizan las credenciales configuradas en el archivo `.env`.
 
-## 7. Configuración de n8n
+## 6. Configuracion de n8n
 
-El proyecto incluye un workflow exportado para la captura y gestión de contactos:
+Al iniciar el contenedor, n8n importa automaticamente el workflow de captura de contactos y configura su credencial PostgreSQL para conectarse al servicio `postgres-asisti`. No es necesario importar el archivo manualmente.
 
-`n8n/workflows/asisti-contactos.json`
+En el primer acceso a http://localhost:5678, n8n solicitara crear la cuenta propietaria de la instancia. Completar ese registro una sola vez; en los siguientes accesos, iniciar sesion con esa cuenta. El workflow ya estara cargado y disponible con su webhook en `/webhook/asisti/contactos`.
 
-Para importarlo:
-
-1. Ingresar a http://localhost:5678.
-2. Completar la configuración inicial de usuario propietario de n8n, si se solicita.
-3. Importar el workflow desde el archivo JSON incluido en el repositorio.
-4. Configurar las credenciales de PostgreSQL del workflow.
-
-Los datos de conexión son:
-
-| Parámetro | Valor |
-|---|---|
-| Host | postgres-asisti |
-| Puerto | 5432 |
-| Base de datos | asisti |
-| Usuario | asisti_user |
-| Contraseña | Valor de POSTGRES_PASSWORD del archivo .env |
-| SSL | Desactivado para la conexión interna local |
-
-La credencial debe guardarse en n8n antes de ejecutar el workflow.
-
-## 8. Base de datos y documentos RAG
+## 7. Base de datos y documentos RAG
 
 PostgreSQL utiliza la extensión pgvector para almacenar los embeddings de los documentos.
 
@@ -175,7 +111,7 @@ Los modelos se descargan automáticamente durante la primera ejecución mediante
 
 **Nota:** los scripts de `/docker-entrypoint-initdb.d` se ejecutan únicamente cuando PostgreSQL inicializa un volumen de datos vacío. No se vuelven a ejecutar automáticamente cuando se reinicia un contenedor o se utiliza una base de datos existente.
 
-## 9. Monitoreo
+## 8. Monitoreo
 
 El proyecto incorpora Prometheus y Grafana para observar el funcionamiento del servicio de inteligencia artificial.
 
@@ -187,7 +123,7 @@ Acceso:
 - Prometheus: http://localhost:9090
 - Grafana: http://localhost:3000
 
-## 10. Detener los servicios
+## 9. Detener los servicios
 
 Para detener los contenedores sin eliminar los datos almacenados:
 
@@ -205,7 +141,7 @@ Los datos persistentes se conservan en los volúmenes de Docker.
 
 **Importante:** no utilizar `docker compose down -v`, ya que ese comando elimina también los volúmenes y los datos persistentes.
 
-## 11. Solución de problemas
+## 10. Solución de problemas
 
 ### Los servicios no inician correctamente
 
@@ -253,7 +189,7 @@ Comprobar también que los puertos utilizados no estén ocupados por otras aplic
 
 ---
 
-## 12. Consideraciones finales
+## 11. Consideraciones finales
 
 AsisTI está diseñado para ejecutarse localmente mediante Docker Compose, sin depender de servicios pagos de inteligencia artificial.
 
