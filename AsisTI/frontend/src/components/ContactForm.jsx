@@ -24,7 +24,12 @@ function ContactForm({ onSubmit, onCancel, loading }) {
   };
 
   return (
-    <section className="contact-form-container">
+    <section
+      className="contact-form-container"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="contact-form-title"
+    >
       <div className="contact-form-heading">
         <div className="contact-form-icon">✉</div>
 
@@ -33,7 +38,7 @@ function ContactForm({ onSubmit, onCancel, loading }) {
             ASISTENCIA TÉCNICA
           </span>
 
-          <h2>Contactar a Soporte</h2>
+          <h2 id="contact-form-title">Cargar ticket a Sistemas</h2>
 
           <p>
             Contanos qué problema estás teniendo y nuestro equipo de
