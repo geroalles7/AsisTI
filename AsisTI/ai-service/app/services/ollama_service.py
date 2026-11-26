@@ -48,25 +48,11 @@ Contenido:
 
     # 4. Preparar las instrucciones y la consulta
     user_message = f"""
-CONTEXTO DOCUMENTAL RECUPERADO:
-
+DOCUMENTOS RELEVANTES:
 {context}
 
-PREGUNTA DEL EMPLEADO:
-
+CONSULTA DEL EMPLEADO:
 {message}
-
-INSTRUCCIONES:
-
-- Utilizá el contexto documental cuando sea relevante.
-- No inventes procedimientos internos.
-- Si el contexto no contiene la información necesaria,
-  indicá que no encontraste información específica
-  en los instructivos disponibles.
-- Podés ofrecer recomendaciones generales y seguras,
-  diferenciándolas de los procedimientos documentados.
-- Si no podés resolver el inconveniente, ofrecé
-  contactar al área de Soporte.
 """
 
     # 5. Enviar la consulta a Ollama
@@ -82,7 +68,10 @@ INSTRUCCIONES:
                 "content": user_message
             }
         ],
-        "stream": False
+        "stream": False,
+        "options": {
+            "num_predict": 300
+        }
     }
 
     generation_start = time.perf_counter()
