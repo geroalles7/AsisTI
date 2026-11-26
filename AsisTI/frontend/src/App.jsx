@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatHeader from "./components/ChatHeader";
 import ChatMessage from "./components/ChatMessage";
 import ChatInput from "./components/ChatInput";
@@ -113,20 +113,26 @@ function App() {
     }
   };
 
-  const openContactForm = () => {
-    setShowContactForm(true);
-    setShowActions(false);
-  };
-
   const closeContactForm = () => {
     if (contactLoading) return;
     setShowContactForm(false);
   };
 
+  useEffect(() => {
+    if (!showContactForm) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" && !contactLoading) setShowContactForm(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showContactForm, contactLoading]);
+
   return (
     <div className="app-container">
       <div className="chat-container">
-        <ChatHeader />
+        <ChatHeader onOpenTicket={() => setShowContactForm(true)} />
 
         <main className="chat-main">
           <div className="chat-content">
@@ -141,13 +147,6 @@ function App() {
               </p>
             </div>
 
-            {showContactForm && (
-              <ContactForm
-                onSubmit={handleContactSubmit}
-                onCancel={closeContactForm}
-                loading={contactLoading}
-              />
-            )}
 
             <div className="messages-container">
               {messages.map((message) => (
@@ -165,37 +164,19 @@ function App() {
               <QuickActions onSelect={sendUserMessage} />
             )}
 
-            {!showContactForm &&
-              messages.length > 1 &&
-              !loading && (
-                <div className="support-escalation">
-                  <div className="support-escalation-icon">
-                    <span>?</span>
-                  </div>
-
-                  <div className="support-escalation-content">
-                    <strong>¿No pudiste resolverlo?</strong>
-                    <p>
-                      Nuestro equipo de Sistemas puede ayudarte con tu
-                      problema.
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={openContactForm}
-                    className="support-escalation-button"
-                  >
-                    Contactar a Soporte
-                    <span aria-hidden="true">→</span>
-                  </button>
-                </div>
-              )}
           </div>
         </main>
 
-        {!showContactForm && (
-          <ChatInput onSend={sendUserMessage} />
+        <ChatInput onSend={sendUserMessage} />
+
+        {showContactForm && (
+          <div className="contact-form-backdrop">
+            <ContactForm
+              onSubmit={handleContactSubmit}
+              onCancel={closeContactForm}
+              loading={contactLoading}
+            />
+          </div>
         )}
 
         <footer className="chat-footer">

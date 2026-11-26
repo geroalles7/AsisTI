@@ -19,6 +19,12 @@ services:
     container_name: asisti-backend
     ports:
       - "8000:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: ${APP_KEY:-base64:bI8i6UDTQWSuCnVMzTKIYNhLfl0WAyofkalsYOGg9So=}
+      AI_SERVICE_URL: http://ai-service:8001
+      N8N_CONTACTOS_WEBHOOK: ${N8N_CONTACTOS_WEBHOOK:-http://n8n:5678/webhook/asisti/contactos}
     volumes:
       - ./backend:/var/www/html
       - backend_vendor:/var/www/html/vendor
@@ -34,11 +40,16 @@ services:
       - GENERIC_TIMEZONE=America/Argentina/Buenos_Aires
       - TZ=America/Argentina/Buenos_Aires
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-asisti-local-n8n-encryption-key-change-me}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-asisti_local_dev}
     volumes:
       - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/opt/asisti/workflows:ro
+      - ./n8n/bootstrap.sh:/opt/asisti/bootstrap.sh:ro
     depends_on:
       postgres-asisti:
         condition: service_healthy
+    entrypoint: ["/bin/sh", "/opt/asisti/bootstrap.sh"]
 
   postgres-asisti:
     image: pgvector/pgvector:pg17
@@ -47,7 +58,7 @@ services:
     environment:
       POSTGRES_DB: asisti
       POSTGRES_USER: asisti_user
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-asisti_local_dev}
     ports:
       - "5432:5432"
     volumes:
@@ -108,7 +119,7 @@ services:
       DB_PORT: 5432
       DB_NAME: asisti
       DB_USER: asisti_user
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-asisti_local_dev}
     volumes:
       - ./ai-service:/app
     depends_on:
@@ -133,7 +144,7 @@ services:
       DB_PORT: 5432
       DB_NAME: asisti
       DB_USER: asisti_user
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-asisti_local_dev}
     volumes:
       - ./ai-service:/app
     command: ["python", "-m", "app.rag.indexer"]

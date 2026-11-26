@@ -341,83 +341,60 @@
 }
 
 
-/* =========================================
-   ESCALAMIENTO A SOPORTE
-========================================= */
-
-.support-escalation {
-  margin: 32px 42px 10px;
-  padding: 18px 20px;
+.chat-header-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
-  border: 1px solid #e5eaf2;
-  border-radius: 14px;
-  background: #fafbfe;
+  gap: 20px;
 }
 
-.support-escalation-icon {
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: #edf2ff;
-  color: #4169e1;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.support-escalation-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.support-escalation-content strong {
-  display: block;
-  margin-bottom: 4px;
-  color: #354052;
-  font-size: 13px;
-}
-
-.support-escalation-content p {
-  margin: 0;
-  color: #8791a2;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.support-escalation-button {
-  flex-shrink: 0;
-  display: flex;
+.header-ticket-button {
+  min-height: 40px;
+  padding: 0 14px;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 11px 15px;
-  border: 1px solid #4169e1;
-  border-radius: 9px;
-  background: #ffffff;
-  color: #4169e1;
+  gap: 8px;
+  border: 1px solid #dbe4fb;
+  border-radius: 10px;
+  background: #f5f7ff;
+  color: #3155c5;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 650;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
-.support-escalation-button:hover {
-  background: #4169e1;
-  color: #ffffff;
+.header-ticket-button:hover {
+  border-color: #4169e1;
+  background: #edf2ff;
+}
+
+.header-ticket-button:focus-visible {
+  outline: 3px solid rgba(65, 105, 225, 0.28);
+  outline-offset: 2px;
 }
 
 /* =========================================
    FORMULARIO CONTACTAR A SOPORTE
 ========================================= */
 
+.contact-form-backdrop {
+  position: absolute;
+  z-index: 5;
+  inset: 82px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 24px;
+  background: rgba(27, 39, 61, 0.38);
+  backdrop-filter: blur(3px);
+}
+
 .contact-form-container {
   width: 100%;
   max-width: 650px;
-  margin: 25px auto 35px;
+  margin: auto;
   padding: 30px;
   border: 1px solid #e7ebf2;
   border-radius: 17px;
@@ -663,23 +640,24 @@
 /* RESPONSIVE - SOPORTE */
 
 @media (max-width: 600px) {
-  .support-escalation {
-    margin: 25px 0 10px;
-    padding: 15px;
-    flex-wrap: wrap;
+  .contact-form-backdrop {
+    inset: 82px 0 0;
+    align-items: flex-start;
+    padding: 12px;
   }
 
-  .support-escalation-content {
-    flex-basis: calc(100% - 60px);
+  .chat-header-actions {
+    gap: 10px;
   }
 
-  .support-escalation-button {
-    width: 100%;
-    justify-content: center;
+  .header-ticket-button {
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 12px;
   }
 
   .contact-form-container {
-    margin: 20px auto;
+    margin: auto;
     padding: 21px 17px;
     border-radius: 13px;
   }
@@ -734,5 +712,12 @@
 
   .message-bubble {
     max-width: 85%;
+  }
+}
+
+@media (max-width: 380px) {
+  .connection-status {
+    gap: 0;
+    font-size: 0;
   }
 }
